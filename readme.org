@@ -1,0 +1,11 @@
+* Read Memory
+- Pronounced "red memory"
+- Read Memory keeps track of what you've read online. 
+
+* Example
+1. Read the comments in a post in the morning
+2. Then go back again in the evening
+3. The comments you've already read are faded out for easy detection. 
+
+* Coverage
+Planning to support HN and Reddit.
