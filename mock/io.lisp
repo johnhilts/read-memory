@@ -1,4 +1,4 @@
-(in-package #:read-memory)
+(in-package #:read-memory/mock)
 
 (defun read-mock-file (filename)
   (with-output-to-string (out)
@@ -24,9 +24,9 @@
   (append (list 1234 5678 9012) kids))
 
 (defun test-filter-new-only ()
-  (let* ((new (get-kids (get-mock-json "story.json")))
-         (old (add-new-kids new)))
-    (set-difference old new)))
+  (let* ((old (get-kids (get-mock-json "story.json")))
+         (new (add-new-kids old)))
+    (set-difference new old)))
 
 ;; Examples
 ;; (get-mock-json "story.json")
