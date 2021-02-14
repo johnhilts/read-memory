@@ -8,6 +8,10 @@
   "get story details"
   (get-mock-json "story.json"))
 
+(defun get-comment (comment-id)
+  "get comment details"
+  (get-mock-json "comment.json"))
+
 (defun get-kids (item)
   "get child IDs"
   (subseq (find-if #'(lambda (e) (equal :kids (car e))) item) 1))

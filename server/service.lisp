@@ -1,28 +1,29 @@
 (in-package #:read-memory)
 
-(defun get-main-list (&key count for)
+(defun get-post-list (&key count for)
   "get the main list of stories, articles, etc"
   (case for
-    ('hn
+    (:hn
      (get-top-stories count))))
 
 (defun get-list-item-by-id (item-id &key for type)
   "get an item by its ID"
   (case for
-    ('hn
+    (:hn
      (case type
-       ('story (get-story item-id))))))
+       (:post (get-story item-id))
+       (:comment (get-comment item-id))))))
 
 (defun get-sub-item (item &key key for)
   "get a sub-item by a key"
   (case for
-    ('hn
+    (:hn
      (cdr (find-if #'(lambda (e) (equal key (car e))) item)))))
 
 (defun get-comments (parent-item &key for)
   "get the comments associated with a parent item"
   (case for
-    ('hn
+    (:hn
      (get-kids parent-item))))
   
 (defun get-kids (item)
