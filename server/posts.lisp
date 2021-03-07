@@ -23,4 +23,20 @@
    (get-post-list :count 20 :for for))
 
 (defun get-old-post-list (&key for)
-   (get-post-list :count 20 :for for)) ; need to create a function to get old posts from "cache"
+  (get-file-list "/home/jfh/code/lisp/source/web/read-memory/mock/stories/existing/*.json"))
+
+(defun get-post-list (&key count for)
+  "get the main list of stories, articles, etc"
+  (case for
+    (:hn
+     (get-top-stories count))))
+
+;; change this to use recursion!
+(defun get-file-list (folder-spec)
+  (let ((files (directory folder-spec)))
+    (do ((file-list files (cdr file-list))
+         (file-name-list))
+        ((null file-list) file-name-list)
+      (let* ((file-name (file-namestring (car file-list)))
+            (extension-position (search ".json" file-name)))
+        (push (subseq file-name 0 extension-position) file-name-list)))))

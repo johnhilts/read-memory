@@ -1,11 +1,5 @@
 (in-package #:read-memory)
 
-(defun get-post-list (&key count for)
-  "get the main list of stories, articles, etc"
-  (case for
-    (:hn
-     (get-top-stories count))))
-
 (defun get-list-item-by-id (item-id &key for type)
   "get an item by its ID"
   (case for
