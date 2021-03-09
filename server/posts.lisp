@@ -31,12 +31,18 @@
     (:hn
      (get-top-stories count))))
 
-;; change this to use recursion!
 (defun get-file-list (folder-spec)
-  (let ((files (directory folder-spec)))
-    (do ((file-list files (cdr file-list))
-         (file-name-list))
-        ((null file-list) file-name-list)
-      (let* ((file-name (file-namestring (car file-list)))
-            (extension-position (search ".json" file-name)))
-        (push (subseq file-name 0 extension-position) file-name-list)))))
+  "process list of files to get list of bare extensionless file names"
+  (labels ((get-file-name (file)
+             (let* ((file-name (file-namestring file))
+                    (extension-position (search ".json" file-name)))
+               (subseq file-name 0 extension-position)))
+           (get-file-list-r (file-list)
+             (cond
+               ((null file-list)
+                nil)
+               (t
+                (cons
+                 (get-file-name (car file-list))
+                 (get-file-list-r (cdr file-list)))))))
+    (get-file-list-r (directory folder-spec))))
