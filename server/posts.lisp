@@ -31,19 +31,16 @@
     (:hn
      (get-top-stories count))))
 
-;; refactor to use REDUCE!!
 (defun get-file-list (folder-spec)
   "process list of files to get list of bare extensionless file names"
-  (labels ((get-file-name (file)
-             (let* ((file-name (file-namestring file))
-                    (extension-position (search ".json" file-name)))
-               (subseq file-name 0 extension-position)))
-           (get-file-list-r (file-list)
-             (cond
-               ((null file-list)
-                nil)
-               (t
-                (cons
-                 (get-file-name (car file-list))
-                 (get-file-list-r (cdr file-list)))))))
-    (get-file-list-r (directory folder-spec))))
+  (flet ((get-json-file-name (file)
+           "get bare file name without extension"
+           (let* ((file-name (file-namestring file))
+                  (extension-position (search ".json" file-name)))
+             (subseq file-name 0 extension-position))))
+    (reverse
+     (reduce
+      #'(lambda (acc cur)
+          (cons (get-json-file-name cur) acc))
+      (directory folder-spec) :initial-value nil))))
+
