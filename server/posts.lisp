@@ -31,6 +31,7 @@
     (:hn
      (get-top-stories count))))
 
+;; refactor to use REDUCE!!
 (defun get-file-list (folder-spec)
   "process list of files to get list of bare extensionless file names"
   (labels ((get-file-name (file)
