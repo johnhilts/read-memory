@@ -2,15 +2,15 @@
 
 (defun get-top-stories (story-count)
   "get the top N stories"
-  (subseq (get-mock-json "top-stories.json") 0 story-count))
+  (subseq (read-memory/mock::get-mock-json "top-stories.json") 0 story-count))
 
 (defun get-story (story-id)
   "get story details"
-  (get-mock-json "story.json"))
+  (read-memory/mock::get-mock-json "story.json"))
 
 (defun get-comment (comment-id)
   "get comment details"
-  (get-mock-json "comment.json"))
+  (read-memory/mock::get-mock-json "comment.json"))
 
 (defun get-kids (item)
   "get child IDs"
